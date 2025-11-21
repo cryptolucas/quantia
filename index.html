@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quantia – Prototipo App</title>
+
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "slate-950": "#020617",
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Inter", sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-50 flex items-center justify-center py-6 px-4">
+
+  <!-- Marco de “teléfono” -->
+  <div class="w-full max-w-sm rounded-3xl border border-slate-800 bg-slate-900 shadow-2xl overflow-hidden">
+    <!-- Barra superior fake -->
+    <div class="h-4 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900"></div>
+
+    <!-- HEADER (común) -->
+    <header class="px-5 pt-4 pb-3 flex items-center justify-between gap-3 border-b border-slate-800/60">
+      <div class="flex items-center gap-2">
+        <div
+          class="h-8 w-8 rounded-2xl bg-gradient-to-br from-cyan-400 to-emerald-400 flex items-center justify-center text-xs font-bold tracking-tight">
+          Q
+        </div>
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400">
+            Fondo cuantitativo
+          </p>
+          <h1 class="text-sm font-semibold tracking-tight">Quantia</h1>
+        </div>
+      </div>
+      <button
+        class="h-8 px-3 text-[11px] rounded-full border border-slate-700 bg-slate-900/70 hover:bg-slate-800 flex items-center">
+        <span class="mr-1 inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+        Modo automático
+      </button>
+    </header>
+
+    <!-- NAV TABS (ahora 6 secciones) -->
+    <nav class="px-4 pt-3 pb-2">
+      <div
+        class="flex bg-slate-900/60 border border-slate-800 rounded-full p-0.5 h-9 text-[11px] overflow-x-auto">
+        <button
+          class="tab-btn rounded-full px-3 capitalize bg-slate-800 whitespace-nowrap"
+          data-tab="resumen">
+          Resumen
+        </button>
+        <button
+          class="tab-btn rounded-full px-3 capitalize text-slate-400 whitespace-nowrap"
+          data-tab="cartera">
+          Cartera
+        </button>
+        <button
+          class="tab-btn rounded-full px-3 capitalize text-slate-400 whitespace-nowrap"
+          data-tab="modelos">
+          Modelos
+        </button>
+        <button
+          class="tab-btn rounded-full px-3 capitalize text-slate-400 whitespace-nowrap"
+          data-tab="invertir">
+          Invertir
+        </button>
+        <button
+          class="tab-btn rounded-full px-3 capitalize text-slate-400 whitespace-nowrap"
+          data-tab="fondos">
+          Fondos
+        </button>
+        <button
+          class="tab-btn rounded-full px-3 capitalize text-slate-400 whitespace-nowrap"
+          data-tab="soporte">
+          Soporte
+        </button>
+      </div>
+    </nav>
+
+    <!-- CONTENIDO (cambia según tab) -->
+    <main class="px-5 pb-5">
+
+      <!-- PANTALLA: RESUMEN (portafolio personal) -->
+      <section id="page-resumen" class="space-y-4">
+        <!-- Card principal -->
+        <div
+          class="rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border border-slate-800 p-4">
+          <div class="mb-2">
+            <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400">
+              Valor de tu inversión
+            </p>
+            <p class="text-2xl font-semibold tracking-tight">
+              $ 24.350.000
+            </p>
+          </div>
+          <div class="flex items-center justify-between text-xs mb-2">
+            <div class="flex items-center gap-1.5 text-emerald-400">
+              <span class="text-sm">↗</span>
+              <span>+39,4% YTD</span>
+            </div>
+            <p class="text-slate-400 text-[11px]">
+              Volatilidad histórica: 7,9%
+            </p>
+          </div>
+          <!-- Mini gráfico estático -->
+          <div class="h-24 mt-1 rounded-xl bg-slate-950/60 border border-slate-800/70 relative overflow-hidden">
+            <svg viewBox="0 0 100 40" class="w-full h-full">
+              <defs>
+                <linearGradient id="grad" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#22c55e" stop-opacity="0.8" />
+                  <stop offset="100%" stop-color="#22c55e" stop-opacity="0" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M0 30 L10 28 L20 26 L30 27 L40 24 L50 22 L60 23 L70 20 L80 19 L90 18 L100 17 L100 40 L0 40 Z"
+                fill="url(#grad)" />
+              <path
+                d="M0 30 L10 28 L20 26 L30 27 L40 24 L50 22 L60 23 L70 20 L80 19 L90 18 L100 17"
+                fill="none"
+                stroke="#22c55e"
+                stroke-width="2" />
+            </svg>
+            <p class="absolute bottom-1 right-2 text-[9px] text-slate-500">
+              Últimos 7 días
+            </p>
+          </div>
+        </div>
+
+        <!-- Cards de resumen -->
+        <div class="grid grid-cols-2 gap-3">
+          <div
+            class="rounded-2xl border border-slate-800 bg-slate-900/60 p-3 flex flex-col gap-1.5">
+            <div
+              class="flex items-center justify-between text-[11px] text-slate-400">
+              <span>Riesgo actual</span>
+              <span class="text-emerald-400 text-xs">🛡</span>
+            </div>
+            <p class="text-sm font-medium">Moderado</p>
+            <p class="text-[11px] text-slate-500">
+              Exposición a renta variable: 54%
+            </p>
+          </div>
+
+          <div
+            class="rounded-2xl border border-slate-800 bg-slate-900/60 p-3 flex flex-col gap-1.5">
+            <div
+              class="flex items-center justify-between text-[11px] text-slate-400">
+              <span>Drawdown máx.</span>
+              <span class="text-rose-400 text-xs">↓</span>
+            </div>
+            <p class="text-sm font-medium">-6,2%</p>
+            <p class="text-[11px] text-slate-500">
+              Últimos 12 meses
+            </p>
+          </div>
+        </div>
+
+        <!-- Distribución cuantitativa -->
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 p-3 flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div
+              class="h-10 w-10 rounded-full bg-slate-800 flex items-center justify-center">
+              <span class="text-cyan-400 text-lg">◎</span>
+            </div>
+            <div>
+              <p class="text-xs text-slate-400">
+                Distribución cuantitativa
+              </p>
+              <p class="text-sm font-medium">8 clases de activo</p>
+            </div>
+          </div>
+          <button
+            class="h-7 px-3 text-[11px] rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-medium">
+            Ver detalle
+          </button>
+        </div>
+      </section>
+
+      <!-- PANTALLA: CARTERA (detalle del portafolio personal) -->
+      <section id="page-cartera" class="space-y-2.5 hidden">
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 p-3 mb-1">
+          <p class="text-xs text-slate-400 mb-1">Cartera actual</p>
+          <p class="text-sm text-slate-300">
+            Composición diversificada entre renta variable, renta fija,
+            estrategias cuantitativas y liquidez táctica.
+          </p>
+        </div>
+
+        <!-- Cards de posiciones -->
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 py-2.5 px-3 flex items-center justify-between gap-3">
+          <div class="flex flex-col gap-0.5">
+            <p class="text-sm font-medium leading-tight">
+              S&amp;P 500 Futures
+            </p>
+            <p class="text-[11px] text-slate-500">Acciones USA</p>
+            <p class="text-[11px] text-slate-400">
+              Peso en cartera: 32%
+            </p>
+          </div>
+          <span class="text-xs font-semibold text-emerald-400">
+            +4,2%
+          </span>
+        </div>
+
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 py-2.5 px-3 flex items-center justify-between gap-3">
+          <div class="flex flex-col gap-0.5">
+            <p class="text-sm font-medium leading-tight">
+              Bonos Tesoro 10Y
+            </p>
+            <p class="text-[11px] text-slate-500">Renta fija</p>
+            <p class="text-[11px] text-slate-400">
+              Peso en cartera: 24%
+            </p>
+          </div>
+          <span class="text-xs font-semibold text-emerald-400">
+            +1,1%
+          </span>
+        </div>
+
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 py-2.5 px-3 flex items-center justify-between gap-3">
+          <div class="flex flex-col gap-0.5">
+            <p class="text-sm font-medium leading-tight">
+              Factor Momentum Global
+            </p>
+            <p class="text-[11px] text-slate-500">
+              Estrategia cuantitativa
+            </p>
+            <p class="text-[11px] text-slate-400">
+              Peso en cartera: 18%
+            </p>
+          </div>
+          <span class="text-xs font-semibold text-emerald-400">
+            +6,8%
+          </span>
+        </div>
+
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 py-2.5 px-3 flex items-center justify-between gap-3">
+          <div class="flex flex-col gap-0.5">
+            <p class="text-sm font-medium leading-tight">
+              Cripto Basket
+            </p>
+            <p class="text-[11px] text-slate-500">Activos digitales</p>
+            <p class="text-[11px] text-slate-400">
+              Peso en cartera: 14%
+            </p>
+          </div>
+          <span class="text-xs font-semibold text-emerald-400">
+            +9,4%
+          </span>
+        </div>
+
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 py-2.5 px-3 flex items-center justify-between gap-3">
+          <div class="flex flex-col gap-0.5">
+            <p class="text-sm font-medium leading-tight">
+              Cash / Money Market
+            </p>
+            <p class="text-[11px] text-slate-500">Liquidez táctica</p>
+            <p class="text-[11px] text-slate-400">
+              Peso en cartera: 12%
+            </p>
+          </div>
+          <span class="text-xs font-semibold text-emerald-400">
+            +0,7%
+          </span>
+        </div>
+      </section>
+
+      <!-- PANTALLA: MODELOS (lógica cuantitativa del portafolio) -->
+      <section id="page-modelos" class="space-y-2.5 hidden">
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 p-3 mb-1">
+          <p class="text-xs text-slate-400 mb-1">
+            Estrategias cuantitativas
+          </p>
+          <p class="text-sm text-slate-300">
+            Quantia combina varios modelos para equilibrar crecimiento,
+            control de riesgo y estabilidad en diferentes regímenes de mercado.
+          </p>
+        </div>
+
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 py-2.5 px-3 flex gap-3">
+          <div class="mt-0.5">
+            <div
+              class="h-8 w-8 rounded-full bg-slate-800 flex items-center justify-center text-emerald-400 text-sm">
+              ⊕
+            </div>
+          </div>
+          <div class="space-y-1">
+            <p class="text-sm font-semibold leading-tight">
+              Momentum cuantitativo
+            </p>
+            <p class="text-[11px] text-slate-400 leading-snug">
+              Modelo que sobrepondera activos con mejor desempeño reciente
+              y reduce exposición en activos en tendencia bajista.
+            </p>
+            <div
+              class="flex items-center gap-3 text-[11px] text-slate-500">
+              <span>Volatilidad: media-alta</span>
+              <span>Horizonte: 6–18 meses</span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 py-2.5 px-3 flex gap-3">
+          <div class="mt-0.5">
+            <div
+              class="h-8 w-8 rounded-full bg-slate-800 flex items-center justify-center text-emerald-400 text-sm">
+              ≈
+            </div>
+          </div>
+          <div class="space-y-1">
+            <p class="text-sm font-semibold leading-tight">
+              Market Neutral
+            </p>
+            <p class="text-[11px] text-slate-400 leading-snug">
+              Estrategia long/short que captura ineficiencias entre pares
+              de activos y minimiza la exposición direccional al mercado.
+            </p>
+            <div
+              class="flex items-center gap-3 text-[11px] text-slate-500">
+              <span>Volatilidad: media</span>
+              <span>Horizonte: 3–12 meses</span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 py-2.5 px-3 flex gap-3">
+          <div class="mt-0.5">
+            <div
+              class="h-8 w-8 rounded-full bg-slate-800 flex items-center justify-center text-emerald-400 text-sm">
+              ⚖
+            </div>
+          </div>
+          <div class="space-y-1">
+            <p class="text-sm font-semibold leading-tight">
+              Riesgo controlado
+            </p>
+            <p class="text-[11px] text-slate-400 leading-snug">
+              Modelo que ajusta la exposición a renta variable según la
+              volatilidad y el estrés del mercado para contener pérdidas
+              extremas.
+            </p>
+            <div
+              class="flex items-center gap-3 text-[11px] text-slate-500">
+              <span>Volatilidad: baja-media</span>
+              <span>Horizonte: dinámico</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANTALLA: INVERTIR (con campo de monto editable) -->
+      <section id="page-invertir" class="space-y-3 hidden">
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 p-3 space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="w-1/2 pr-2">
+              <p class="text-xs text-slate-400 mb-1">Nuevo aporte</p>
+              <!-- Campo para escribir el monto -->
+              <div
+                class="flex items-center rounded-xl border border-slate-700 bg-slate-950/60 px-2 py-1.5 text-sm">
+                <span class="text-slate-400 mr-1">$</span>
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  placeholder="2.000.000"
+                  class="bg-transparent outline-none w-full text-slate-50 placeholder:text-slate-600 text-sm" />
+              </div>
+            </div>
+            <div
+              class="flex flex-col items-end text-[11px] text-slate-400 gap-0.5">
+              <span>Horizonte: 3 años</span>
+              <span>Perfil: Moderado</span>
+            </div>
+          </div>
+
+          <div class="space-y-1">
+            <p class="text-[11px] text-slate-400">
+              Escenario cuantitativo estimado
+            </p>
+            <div
+              class="rounded-2xl border border-slate-800 bg-slate-950/80 px-3 py-2.5 flex items-center justify-between text-[11px]">
+              <div>
+                <p class="text-slate-400">
+                  Retorno esperado anual
+                </p>
+                <p
+                  class="text-emerald-400 text-sm font-semibold flex items-center gap-1">
+                  <span class="text-sm">↗</span> 8,2%
+                </p>
+              </div>
+              <div class="text-right">
+                <p class="text-slate-400">
+                  Prob. pérdida &gt; 10%
+                </p>
+                <p class="text-amber-400 text-sm font-semibold">
+                  7,4%
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <button
+            id="btn-simular"
+            class="w-full h-9 rounded-full text-[12px] bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold">
+            Simular y confirmar aporte
+          </button>
+        </div>
+
+        <div
+          class="flex items-center justify-between text-[11px] text-slate-500 px-1 pb-1">
+          <div class="flex items-center gap-1.5">
+            <span class="text-xs">👤</span>
+            <span>
+              Cuenta verificada • KYC y perfil de riesgo completados
+            </span>
+          </div>
+        </div>
+
+        <!-- mensaje de confirmación simulada -->
+        <div id="confirmacion" class="hidden">
+          <div
+            class="rounded-2xl border border-emerald-500/60 bg-emerald-500/10 px-3 py-2.5 text-[11px] text-emerald-200">
+            Aporte simulado con éxito. En una versión productiva se enviaría
+            esta orden al motor cuantitativo de Quantia.
+          </div>
+        </div>
+      </section>
+
+      <!-- PANTALLA: FONDOS (dashboard general de fondos cuantitativos) -->
+      <section id="page-fondos" class="space-y-3 hidden">
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 p-3 space-y-1">
+          <p class="text-xs text-slate-400">
+            Dashboard de fondos Quantia
+          </p>
+          <p class="text-sm text-slate-200">
+            Visión consolidada del desempeño de los distintos fondos cuantitativos
+            que administra Quantia, independiente de tu portafolio personal.
+          </p>
+        </div>
+
+        <!-- Cards de fondos -->
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 p-3 space-y-2">
+          <div class="flex items-center justify-between">
+            <p class="text-sm font-semibold">
+              Quantia Momentum Global
+            </p>
+            <span class="text-xs text-emerald-400">Fondo Accionario</span>
+          </div>
+          <div class="flex justify-between text-[11px] text-slate-400">
+            <span>YTD: <span class="text-emerald-400 font-semibold">+41,3%</span></span>
+            <span>Volatilidad: 12,1%</span>
+            <span>Máx. DD: -8,4%</span>
+          </div>
+          <div class="flex justify-between text-[11px] text-slate-500">
+            <span>Horizonte: 3–5 años</span>
+            <span>Patrimonio: 45.000 MM</span>
+          </div>
+        </div>
+
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 p-3 space-y-2">
+          <div class="flex items-center justify-between">
+            <p class="text-sm font-semibold">
+              Quantia Market Neutral
+            </p>
+            <span class="text-xs text-cyan-400">Fondo Long/Short</span>
+          </div>
+          <div class="flex justify-between text-[11px] text-slate-400">
+            <span>YTD: <span class="text-emerald-400 font-semibold">+24,8%</span></span>
+            <span>Volatilidad: 6,5%</span>
+            <span>Máx. DD: -3,2%</span>
+          </div>
+          <div class="flex justify-between text-[11px] text-slate-500">
+            <span>Horizonte: 2–4 años</span>
+            <span>Patrimonio: 28.000 MM</span>
+          </div>
+        </div>
+
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 p-3 space-y-2">
+          <div class="flex items-center justify-between">
+            <p class="text-sm font-semibold">
+              Quantia Riesgo Controlado
+            </p>
+            <span class="text-xs text-amber-300">Fondo Balanceado</span>
+          </div>
+          <div class="flex justify-between text-[11px] text-slate-400">
+            <span>YTD: <span class="text-emerald-400 font-semibold">+21,1%</span></span>
+            <span>Volatilidad: 4,2%</span>
+            <span>Máx. DD: -2,5%</span>
+          </div>
+          <div class="flex justify-between text-[11px] text-slate-500">
+            <span>Horizonte: 1–3 años</span>
+            <span>Patrimonio: 31.500 MM</span>
+          </div>
+        </div>
+
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 p-3 space-y-2">
+          <div class="flex items-center justify-between">
+            <p class="text-sm font-semibold">
+              Quantia Liquidez Inmediata
+            </p>
+            <span class="text-xs text-orange-300">Fondo de Alta Liquidez</span>
+          </div>
+          <div class="flex justify-between text-[11px] text-slate-400">
+            <span>YTD: <span class="text-emerald-400 font-semibold">+72,1%</span></span>
+            <span>Volatilidad: 25,2%</span>
+            <span>Máx. DD: -11,5%</span>
+          </div>
+          <div class="flex justify-between text-[11px] text-slate-500">
+            <span>Horizonte: Desde 15 días</span>
+            <span>Patrimonio: 80.000 MM</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANTALLA: SOPORTE / FAQ -->
+      <section id="page-soporte" class="space-y-3 hidden">
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 p-3 space-y-1">
+          <p class="text-xs text-slate-400">
+            Soporte al cliente
+          </p>
+          <p class="text-sm text-slate-200">
+            ¿Tienes dudas sobre tu fondo cuantitativo o tu portafolio?
+            Nuestro equipo de soporte puede ayudarte.
+          </p>
+        </div>
+
+        <!-- Canales de contacto -->
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 p-3 space-y-2 text-[11px]">
+          <p class="text-slate-400 mb-1">Canales de contacto</p>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-300">Chat en la app</span>
+            <span class="text-emerald-400">Tiempo de respuesta: &lt; 5 min</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-300">Correo</span>
+            <span class="text-slate-400">soporte@quantia.fin</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-300">Línea telefónica</span>
+            <span class="text-slate-400">Lun–Vie 8:00–17:00</span>
+          </div>
+          <button
+            class="mt-2 w-full h-8 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold text-[11px]">
+            Iniciar chat con soporte
+          </button>
+        </div>
+
+        <!-- FAQ -->
+        <div
+          class="rounded-2xl border border-slate-800 bg-slate-900/60 p-3 space-y-2 text-[11px]">
+          <p class="text-slate-400 mb-1">Preguntas frecuentes</p>
+
+          <div>
+            <p class="text-slate-200 mb-0.5">
+              ¿Qué es un fondo de inversión cuantitativo?
+            </p>
+            <p class="text-slate-400">
+              Es un fondo que toma decisiones de inversión apoyado en modelos
+              matemáticos, estadísticos y de datos, en lugar de depender solo
+              del criterio discrecional de un gestor humano.
+            </p>
+          </div>
+
+          <div>
+            <p class="text-slate-200 mb-0.5">
+              ¿Puedo retirar mi dinero en cualquier momento?
+            </p>
+            <p class="text-slate-400">
+              Depende del fondo. En Quantia algunos fondos son diarios y otros
+              tienen ventanas de liquidez específicas. En la app verás las
+              condiciones de cada fondo antes de invertir.
+            </p>
+          </div>
+
+          <div>
+            <p class="text-slate-200 mb-0.5">
+              ¿Cómo se mide el riesgo de mi inversión?
+            </p>
+            <p class="text-slate-400">
+              Monitorizamos métricas como volatilidad, drawdown máximo,
+              correlaciones y escenarios de estrés para entender el riesgo y
+              ajustar la exposición cuando sea necesario.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- JS para navegación entre “páginas” -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const tabs = document.querySelectorAll(".tab-btn");
+      const pages = {
+        resumen: document.getElementById("page-resumen"),
+        cartera: document.getElementById("page-cartera"),
+        modelos: document.getElementById("page-modelos"),
+        invertir: document.getElementById("page-invertir"),
+        fondos: document.getElementById("page-fondos"),
+        soporte: document.getElementById("page-soporte"),
+      };
+
+      function setActiveTab(tabName) {
+        // Activar/desactivar botones
+        tabs.forEach((btn) => {
+          const name = btn.dataset.tab;
+          if (name === tabName) {
+            btn.classList.add("bg-slate-800", "text-slate-50");
+            btn.classList.remove("text-slate-400");
+          } else {
+            btn.classList.remove("bg-slate-800", "text-slate-50");
+            btn.classList.add("text-slate-400");
+          }
+        });
+
+        // Mostrar/ocultar “pantallas”
+        Object.entries(pages).forEach(([name, section]) => {
+          if (name === tabName) {
+            section.classList.remove("hidden");
+          } else {
+            section.classList.add("hidden");
+          }
+        });
+      }
+
+      // Listeners de tabs
+      tabs.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const tabName = btn.dataset.tab;
+          setActiveTab(tabName);
+        });
+      });
+
+      // Estado inicial
+      setActiveTab("resumen");
+
+      // Botón de simular aporte: solo muestra un mensaje
+      const btnSimular = document.getElementById("btn-simular");
+      const confirmacion = document.getElementById("confirmacion");
+      if (btnSimular && confirmacion) {
+        btnSimular.addEventListener("click", () => {
+          confirmacion.classList.remove("hidden");
+        });
+      }
+    });
+  </script>
+</body>
+</html>
